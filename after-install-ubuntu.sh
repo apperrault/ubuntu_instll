@@ -75,7 +75,8 @@ package_management() {
         smartmontools \
         cifs-utils \
         cockpit \
-        whiptail
+        whiptail \
+        zsh
     sudo apt-get -y dist-upgrade
     sudo apt-get -y autoremove
     sudo apt-get -y autoclean
