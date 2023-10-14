@@ -73,7 +73,9 @@ package_management() {
         rsync \
         sed \
         smartmontools \
-        cifs-utils
+        cifs-utils \
+        cockpit \
+        whiptail
     sudo apt-get -y dist-upgrade
     sudo apt-get -y autoremove
     sudo apt-get -y autoclean
