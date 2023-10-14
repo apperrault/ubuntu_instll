@@ -73,7 +73,7 @@ package_management() {
         rsync \
         sed \
         smartmontools \
-        tmux
+        cifs-utils
     sudo apt-get -y dist-upgrade
     sudo apt-get -y autoremove
     sudo apt-get -y autoclean
@@ -178,8 +178,6 @@ main() {
 
     package_management
     kernel_modules
-    tmux_config
-    tmux_auto
     stricter_defaults
     mergerfs_install
 }
