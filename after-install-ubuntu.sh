@@ -70,6 +70,7 @@ package_management() {
         grep \
         htop \
         ncdu \
+        nfs-common \
         rsync \
         sed \
         smartmontools \
