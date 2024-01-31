@@ -182,7 +182,7 @@ main() {
 
     package_management
     kernel_modules
-    stricter_defaults
+    # stricter_defaults
     mergerfs_install
 }
 main
