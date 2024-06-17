@@ -62,6 +62,7 @@ package_management() {
     sudo apt-get -y update
     sudo apt-get -y install \
         apt-transport-https \
+        acl \
         ca-certificates \
         curl \
         fonts-powerline \
