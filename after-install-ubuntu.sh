@@ -77,6 +77,8 @@ package_management() {
         smartmontools \
         cifs-utils \
         cockpit \
+		screenfetch \
+		inxi \
         whiptail \
         zsh
     sudo apt-get -y dist-upgrade
@@ -89,7 +91,6 @@ kernel_modules() {
     echo "iptable_mangle" | sudo tee /etc/modules-load.d/iptable_mangle.conf
     echo "tun" | sudo tee /etc/modules-load.d/tun.conf
 }
-
 # https://github.com/trapexit/mergerfs/releases
 mergerfs_install() {
     local AVAILABLE_MERGERFS
@@ -119,58 +120,13 @@ stricter_defaults() {
     fi
 
     # https://help.ubuntu.com/community/StricterDefaults#SSH_Root_Login
-    sudo sed -i -E 's/^#?PermitRootLogin .*$/PermitRootLogin no/g' /etc/ssh/sshd_config
+    # this sets a value of prohibit-password rather than no
+    # prohibit-password is the default value, but it is often changed to yes by distribution packages
+    # prohibit-password allows logging in as root using a keypair, but not using a password
+    sudo sed -i -E 's/^#?PermitRootLogin .*$/PermitRootLogin prohibit-password/g' /etc/ssh/sshd_config
 
     # restart ssh after all the changes above
     sudo systemctl restart ssh
-}
-
-# auto-tmux for SSH logins
-# https://github.com/spencertipping/bashrc-tmux
-tmux_auto() {
-    if [[ ! -d "${DETECTED_HOMEDIR}/bashrc-tmux" ]]; then
-        git clone https://github.com/spencertipping/bashrc-tmux.git "${DETECTED_HOMEDIR}/bashrc-tmux"
-    else
-        git -C "${DETECTED_HOMEDIR}/bashrc-tmux" pull
-        git -C "${DETECTED_HOMEDIR}/bashrc-tmux" fetch --all --prune
-        git -C "${DETECTED_HOMEDIR}/bashrc-tmux" reset --hard origin/master
-        git -C "${DETECTED_HOMEDIR}/bashrc-tmux" pull
-    fi
-    if ! grep -q 'bashrc-tmux' "${DETECTED_HOMEDIR}/.bashrc"; then
-        local BASHRC_TMP
-        BASHRC_TMP=$(mktemp)
-        cat <<- 'EOF' | sed -E 's/^ *//' | cat - "${DETECTED_HOMEDIR}/.bashrc" > "${BASHRC_TMP}"
-            [ -z "$PS1" ] && return                 # this still comes first
-            source ~/bashrc-tmux/bashrc-tmux
-
-            # rest of bashrc below...
-
-EOF
-        mv "${BASHRC_TMP}" "${DETECTED_HOMEDIR}/.bashrc"
-        rm -f "${BASHRC_TMP}"
-    fi
-    chown -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/bashrc-tmux"
-    chown -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/.bashrc"
-}
-
-# tmux config
-# https://github.com/gpakosz/.tmux
-tmux_config() {
-    if [[ ! -d "${DETECTED_HOMEDIR}/.tmux" ]]; then
-        git clone https://github.com/gpakosz/.tmux.git "${DETECTED_HOMEDIR}/.tmux"
-    else
-        git -C "${DETECTED_HOMEDIR}/.tmux" pull
-        git -C "${DETECTED_HOMEDIR}/.tmux" fetch --all --prune
-        git -C "${DETECTED_HOMEDIR}/.tmux" reset --hard origin/master
-        git -C "${DETECTED_HOMEDIR}/.tmux" pull
-    fi
-
-    ln -s -f "${DETECTED_HOMEDIR}/.tmux/.tmux.conf" "${DETECTED_HOMEDIR}/.tmux.conf"
-    cp -n "${DETECTED_HOMEDIR}/.tmux/.tmux.conf.local" "${DETECTED_HOMEDIR}/.tmux.conf.local"
-    sudo sed -i -E 's/^#?set -g mouse on$/set -g mouse on/g' "${DETECTED_HOMEDIR}/.tmux.conf.local"
-    chown -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/.tmux"
-    chown -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/.tmux.conf"
-    chown -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/.tmux.conf.local"
 }
 
 # Main Function
