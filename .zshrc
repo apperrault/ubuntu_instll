@@ -99,21 +99,17 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 alias zshconfig="nano ~/.zshrc"
 alias ohmyzsh="nano ~/.oh-my-zsh"
-alias kuma='docker exec swag python3 /app/auto-uptime-kuma.py'
-alias cscli='docker exec -t crowdsec cscli'
 # alias update='sudo apt-get update'
 # alias upgrade='sudo apt-get upgrade'
 alias update='sudo -- sh -c "apt update && apt upgrade"'
-alias psync='rsync -avz --no-o --no-g --no-perms /nfs/endor/private/processed/ /nfs/endor/private/adult_entertainment/namer/watch/'
-alias plexupdate='rsync -avz /home/aaron/ThePornDB.bundle/ /home/aaron/.config/appdata/plex/Library/Application\ Support/Plex\ Media\ Server/Plug-ins/'
+alias psync='rsync -avz --no-o --no-g --no-perms /nfs/endor/private/qbittorrent/processed/ /nfs/endor/private/adult_ent>
+alias plexupdate='rsync -avz /home/aaron/ThePornDB.bundle/ /home/aaron/.config/appdata/plex/Library/Application\ Suppor>
 # make grep output colorful
 alias grep='grep --color=auto'
-alias kashyyyk='ssh aaron@192.168.0.15'
-alias alderaan='ssh aaron@192.168.0.10'
 alias coruscant='ssh aaron@192.168.0.25'
 alias crait='ssh aaron@192.168.0.20'
-alias desktop='ssh aaron@192.168.0.188'
 alias yavin4='ssh aaron@192.168.0.30'
-alias wakeupdesk='/usr/bin/wakeonlan c8:d3:ff:9f:ea:22'
-# alias wakeupnas02='/usr/bin/wakeonlan 00:11:32:11:15:FD'
-# alias wakeupnas03='/usr/bin/wakeonlan 00:11:32:11:15:FE'
+alias hoth='ssh aaron@192.168.0.45'
+alias pangolinaws='ssh aaron@ec2-3-17-64-216.us-east-2.compute.amazonaws.com'
+alias kashyyyk='ssh aaron@192.168.0.35'
+alias andor='ssh aaron@192.168.0.6'
