@@ -102,8 +102,8 @@ alias ohmyzsh="nano ~/.oh-my-zsh"
 # alias update='sudo apt-get update'
 # alias upgrade='sudo apt-get upgrade'
 alias update='sudo -- sh -c "apt update && apt upgrade"'
-alias psync='rsync -avz --no-o --no-g --no-perms /nfs/endor/private/qbittorrent/processed/ /nfs/endor/private/adult_ent>
-alias plexupdate='rsync -avz /home/aaron/ThePornDB.bundle/ /home/aaron/.config/appdata/plex/Library/Application\ Suppor>
+alias psync='rsync -avz --no-o --no-g --no-perms /nfs/endor/private/qbittorrent/processed/ /nfs/endor/private/adult_entertainment/namer/watch/'
+alias plexupdate='rsync -avz /home/aaron/ThePornDB.bundle/ /home/aaron/.config/appdata/plex/Library/Application\ Support/Plex\ Media\ Server/Plug-ins/'
 # make grep output colorful
 alias grep='grep --color=auto'
 alias coruscant='ssh aaron@192.168.0.25'
